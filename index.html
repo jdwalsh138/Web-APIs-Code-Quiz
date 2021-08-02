@@ -12,47 +12,40 @@
   <title>Code Quiz</title>
 </head>
 <body>
-  <div class = "float-right timer">
-    <p>Timer</p>
-  </div>
-
-  <div class = "container">
-
-    
-    <h1>Javascript Fundamentals Quiz</h1>
-    
-    <div class = "row">
-      
-
-      <div class = "col-md-2">
-      </div>
-
-      <div class = "col-md-8">
-        <div class="card">
-          <div class="card-body text-center">
-
-            <h5 class="card-title" id = "questionHeader"></h5>
-
-            <p class="card-text" id = "question">Welcome to the Java Fundamentals quiz!<br> This is a timed quiz so move fast. Click the start button to begin</p>
-
-            <div class = "btn-group-vertical" id = "answerChoices"></div>
-
-            <div id = "feedback"></div>
-
-            <div class = "start">
-            <button class="btn btn-primary" id = "startBtn">Start</button>
-            </div>
+    <h1>Coding Quiz Challenge</h1>
+      <div class="container">
+        <div id="game">
+          <div class="home">
+            <p id="intro">Answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten
+              seconds.</p>
+            <button type="button" class="btn btn-primary" id="start-quiz">Start Quiz</button>
+            <button type="button" class="btn btn-primary" id="show-scores">High Scores</button>
           </div>
+          <div class="overview">
+            <p id="question-title"></p>
+            <h3 id="question-count"></h3>
+          </div>
+          <div>
+            <p id="score-title"></p>
+            <h3 id="score"></h3>
+          </div>
+        </div>
+        <div class="quiz">
+          <h2 id=question>What is the answer to this question?</h2>
+          <button type="button" class="btn btn-outline-primary choice-text" data-number="1">
+            A. Choice
+          </button>
+          <button type="button" class="btn btn-outline-primary choice-text" data-number="2">
+            B. Choice
+          </button>
+          <button type="button" class="btn btn-outline-primary choice-text" data-number="3">
+            C. Choice
+          </button>
+          <button type="button" class="btn btn-outline-primary choice-text" data-number="4">
+            D. Choice
+          </button>
+        </div>
       </div>
-
-     
-
-    </div>
-
-
-  </div>
-
-  <script type="text/javascript" src="Assets/codeQuiz.js"></script>
-  
-</body>
+  </body>
+  <script src=".assets/scripts.js"></script>
 </html>
