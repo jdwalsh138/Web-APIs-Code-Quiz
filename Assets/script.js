@@ -30,7 +30,7 @@ const questions = [
         q: 'Inside which HTML element do we put the JavaScript?',
             c1: '<js>',
             c2: '<script>',
-            c3: '<scripting>'
+            c3: '<scripting>',
             c4: '<javascript>',
             a: 2
     },
