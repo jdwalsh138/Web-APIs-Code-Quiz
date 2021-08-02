@@ -1,128 +1,137 @@
-const startButton = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
+const home = document.getElementsByClassName("home");
+const overview = document.getElementsByClassName("overview");
+const question = document.getElementById("question");
+const choices = Array.from(document.getElementsByClassName("choice-text"));
+const questionCountEl = document.getElementById("question-count");
+const scoreEl = document.getElementById("score");
+const startBtn = document.getElementById("start-quiz");
+const scoresBtn = document.getElementById("show-scores");
+const scoreTitle = document.getElementById("score-title");
+const questionTitle = document.getElementById("question-title");
+const intro = document.getElementById("intro");
 
 
-let shuffledQuestions, currentQuestionIndex
-let countRightAnswers = 0
+let currentQuestion = {};
+let acceptingAnswers = false;
+let score = 0;
+let questionCounter = 0;
+let availableQuestions = [];
 
-startButton.addEventListener('click', startGame)
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++
-    setNextQuestion()
+startBtn.addEventListener("click", e =>{
+    startGame();
 })
 
-function startGame() {
-    console.log('Started')
-    startButton.classList.add('hide')
-    shuffledQuestions = questions.sort(() => Math.random() - .5)
-    currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide')
-    setNextQuestion()
-    countRightAnswers = 0;
-}
-
-function setNextQuestion() {
-    resetState()
-    showQuestion(shuffledQuestions[currentQuestionIndex])
-}
-
-function showQuestion(question) {
-    questionElement.innerText = question.question
-    question.answers.forEach(answer => {
-        const button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add('btn')
-        if (answer.correct) {
-            button.dataset.correct = answer.correct
-        }
-        button.addEventListener('click', selectAnswer)
-        answerButtonsElement.appendChild(button)
-    })
-}
-
-function resetState() {
-    clearStatusClass(document.body)
-    nextButton.classList.add('hide')
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild)
-    }
-}
-
-function selectAnswer(e) {
-    const selectedButton = e.target
-    const correct = selectedButton.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
-    if (shuffledQuestions.length > currentQuestionIndex + 1) {
-        nextButton.classList.remove('hide')
-    } else {
-        startButton.innerText = 'Restart'
-        startButton.classList.remove('hide')
-    } if (selectedButton.dataset = correct) {
-        countRightAnswers++;
-    }
-}
-
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-        element.classList.add('correct')
-    } else {
-        element.classList.add('wrong')
-    }
-}
-
-function clearStatusClass(element) {
-    element.classList.remove('correct')
-    element.classList.remove('wrong')
-}
+scoresBtn.addEventListener("click", e =>{
+    showHighscores();
+})
 
 const questions = [
     {
-        question: 'Inside which HTML element do we put the JavaScript?',
-        answers: [
-            {text: '<js>', correct: false },
-            {text: '<script>', correct: true },
-            {text: '<scripting>', correct: false },
-            {text: '<javascript>', correct: false },
-        ]
+        q: 'Inside which HTML element do we put the JavaScript?',
+            c1: '<js>',
+            c2: '<script>',
+            c3: '<scripting>'
+            c4: '<javascript>',
+            a: 2
     },
     {
-        question: 'What is the correct JavaScript syntax to change the content of the HTML element below?',
-        answers: [
-            {text: 'document.getElementById("demo").innerHTML = "Hello World!";', correct: true },
-            {text: '#demo.innerHTML = "Hello World!";', correct: false },
-            {text: 'document.getElementByName("p").innerHTML = "Hello World!";', correct: false },
-            {text: 'document.getElement("p").innerHTML = "Hello World!";', correct: false },
-        ]
+        q: 'What is the correct JavaScript syntax to change the content of the HTML element below?',
+            c1: 'document.getElementById("demo").innerHTML = "Hello World!";',
+            c2: '#demo.innerHTML = "Hello World!";',
+            c3: 'document.getElementByName("p").innerHTML = "Hello World!";',
+            c4: 'document.getElement("p").innerHTML = "Hello World!";',
+            a: 1
     },
     {
-        question: 'What is the correct syntax for referring to an external script called "xxx.js"?',
-        answers: [
-            {text: 'The <head> section', correct: false },
-            {text: 'The <body> section', correct: false },
-            {text: 'Both the <head> section and the <body> section are correct', correct: true },
-        ]
+        q: 'What is the correct syntax for referring to an external script called "xxx.js"?',
+            c1: 'The <head> section',
+            c2: 'The <body> section',
+            c3: 'Both the <head> section and the <body> section are correct',
+            c4: 'None are correct',
+            a: 3
     },
     {
-        question: 'What is the correct syntax for referring to an external script called "xxx.js"?',
-        answers: [
-            {text: '<script name="xxx.js">', correct: false },
-            {text: '<script src="xxx.js">', correct: true },
-            {text: '<script href="xxx.js">', correct: false },
-        ]
+        q: 'What is the correct syntax for referring to an external script called "xxx.js"?',
+            c1: '<script name="xxx.js">',
+            c2: '<script src="xxx.js">',
+            c3: '<script href="xxx.js">',
+            c4: '<script title="xxx.js">',
+            a: 2
     },
     {
-        question: 'The external Javascript file must contain the <script> tag.',
-        answers: [
-            {text: 'True', correct: true },
-            {text: 'False', correct: false },
-        ]
+        q: 'The external Javascript file must contain the <script> tag.',
+            c1: 'True',
+            c2: 'False',
     },
 
-]
+];
+
+const correctBonus = 20;
+const maxQuestions = 5;
+
+
+
+startGame = () => {
+  questionCounter = 0;
+  score = 0;
+  scoreEl.innerText = score
+  availableQuestions = [...questions];
+  getNewQuestion();
+};
+
+getNewQuestion = () => {
+  if (
+    availableQuestions.length === 0 ||
+    questionCounter >= maxQuestions.length
+  ) {
+    showHighscores();
+  }
+  questionCounter++;
+  questionCountEl.innerText = `${questionCounter}/${maxQuestions}`;
+
+  const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+  currentQuestion = availableQuestions[questionIndex];
+  question.innerText = currentQuestion.q;
+
+  choices.forEach(choice => {
+    const number = choice.dataset["number"];
+    choice.innerText = currentQuestion["c" + number];
+  });
+  availableQuestions.splice(questionIndex, 1);
+  acceptingAnswers = true;
+};
+
+choices.forEach(choice => {
+  choice.addEventListener("click", e => {
+    console.log(e.target);
+    if (!acceptingAnswers) return;
+    acceptingAnswers = false;
+    const selectedChoice = e.target;
+    const selectedAnswer = selectedChoice.dataset["number"];
+
+    const answerStatus =
+      selectedAnswer == currentQuestion.a ? "correct" : "incorrect";
+    selectedChoice.parentElement.classList.add(answerStatus);
+
+    if (answerStatus === "correct") {
+      updateScore(correctBonus);
+    }
+
+    setTimeout(() => {
+      selectedChoice.parentElement.classList.remove(answerStatus);
+      getNewQuestion();
+    }, 1000);
+  });
+});
+
+startGame();
+
+updateScore = num => {
+  score += num;
+  scoreEl.innerText = score;
+};
+
+
+showHighscores = ()=>{
+
+}
