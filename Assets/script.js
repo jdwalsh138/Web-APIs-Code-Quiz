@@ -62,6 +62,7 @@ const questions = [
         q: 'The external Javascript file must contain the <script> tag.',
             c1: 'True',
             c2: 'False',
+            a: 2
     },
 
 ];
