@@ -7,49 +7,75 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href=".Assets/reset.css">
   <link rel="stylesheet" href=".Assets/style.css">
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
   <title>Code Quiz</title>
 </head>
   
 <body>
-    <h1>Coding Quiz Challenge</h1>
-      <div class="container">
-        <div id="game">
-          <div class="home">
-            <p id="intro">Answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten
-              seconds.</p>
-            <button type="button" class="btn btn-primary" id="start-quiz">Start Quiz</button>
-            <button type="button" class="btn btn-primary" id="show-scores">High Scores</button>
-          </div>
-          <div class="overview">
-            <p id="question-title"></p>
-            <h3 id="question-count"></h3>
-          </div>
-          <div>
-            <p id="score-title"></p>
-            <h3 id="score"></h3>
-          </div>
-        </div>
-        <div class="quiz">
-          <h2 id=question>What is the answer to this question?</h2>
-          <button type="button" class="btn btn-outline-primary choice-text" data-number="1">
-            A. Choice
-          </button>
-          <button type="button" class="btn btn-outline-primary choice-text" data-number="2">
-            B. Choice
-          </button>
-          <button type="button" class="btn btn-outline-primary choice-text" data-number="3">
-            C. Choice
-          </button>
-          <button type="button" class="btn btn-outline-primary choice-text" data-number="4">
-            D. Choice
-          </button>
-        </div>
-      </div>
-  </body>
-  
+    <div class="container m-4">
+        <header>
+            <div class="row justify-content-between">
+                <div class="row-4" id="highScores">
+                    View Highscores
+                </div>
+                <div class="row-4" id="timer">
+                    Time: 75</div>
+            </div>
+        </header>
+
+        <section class="row justify-content-center m-4 p-4" id="start" style="display: block;">
+            <div class="col text-center mb-3">
+                <h1>Coding Quiz Challenge</h1>
+            </div>
+          
+            <div class="col text-center m-2">
+                <h4>
+                  Answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten
+              seconds.
+                 </h4>
+            </div>
+
+            <div class="col d-flex justify-content-center  m-2 p-2">
+                <button class="btn btn-primary" id="startButton">Start Quiz</button>
+            </div>
+        </section>
+      
+        <section class="row justify-content-center  m-4 p-4" id="quiz" style="display: none;" >
+            <h3 class="col text-center" id="question">
+            </h3>
+            <div class="col text-center" id="answers">
+            </div>
+        </section>
+       
+        <section class="row justify-content-center m-5 " id="done" style="display: none;">
+            <h1  class="col ml-5" >All done!</h1>
+            <h4 class="col ml-5" id="userScore">Your final score is </h4>
+            <div class="col  ml-5">
+                <label for="name">Enter initials</label>
+                <input  type="text" name="name" id="name">
+                <button id="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </section>
+      
+        <section class="row justify-content-center  m-4 p-4" id="score" style="display: none;">
+            <h1 class="ml-5">Highscores</h1>
+            <ol id="userScores">
+            </ol>
+            <button class="btn btn-primary ml-5" id="back">Go back</button>
+            <button class="btn btn-primary ml-5" id="clear">Clear Highscores</button>
+        </section>
+      
+        <section class="row justify-content-center  m-4 p-4"  id="wrong" style="display: none;">
+            <hr>
+            <h4>wrong</h4>
+        </section>
+      
+        <section id="correct" style="display: none;">
+            <hr>
+            <h4>Correct!</h4>
+        </section>
+    </div>
   <script src=".Assets/script.js"></script>
   
 </html>
