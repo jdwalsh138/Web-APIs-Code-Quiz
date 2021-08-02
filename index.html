@@ -1,36 +1,58 @@
 <!DOCTYPE html>
-<html>
-        
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta name="codequiz" content="Try your best in passing the Code Quiz" />
-        <link rel="stylesheet" href="./Assets/reset.css">
-        <link rel="stylesheet" href="./Assets/styles.css">
-        <script defer type="text/javascript" src="./Assets/script.js"></script>
-        <title>JavaScript Quiz</title>
-    </head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <body>
-        <div class="container">
-            <div id ="question-container" class="hide">
-                <div id="question">Question</div>
-                <div id="answer-buttons" class="btn-grid">
-                    <button class="btn">Answer 1</button>
-                    <button class="btn">Answer 2</button>
-                    <button class="btn">Answer 3</button>
-                    <button class="btn">Answer 3</button>
-                </div>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="Assets/style.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <title>Code Quiz</title>
+</head>
+<body>
+  <div class = "float-right timer">
+    <p>Timer</p>
+  </div>
+
+  <div class = "container">
+
+    
+    <h1>Javascript Fundamentals Quiz</h1>
+    
+    <div class = "row">
+      
+
+      <div class = "col-md-2">
+      </div>
+
+      <div class = "col-md-8">
+        <div class="card">
+          <div class="card-body text-center">
+
+            <h5 class="card-title" id = "questionHeader"></h5>
+
+            <p class="card-text" id = "question">Welcome to the Java Fundamentals quiz!<br> This is a timed quiz so move fast. Click the start button to begin</p>
+
+            <div class = "btn-group-vertical" id = "answerChoices"></div>
+
+            <div id = "feedback"></div>
+
+            <div class = "start">
+            <button class="btn btn-primary" id = "startBtn">Start</button>
             </div>
+          </div>
+      </div>
 
-            <div class="controls">
-                <button id="start-btn" class="start-btn btn">Start</button>
-                <button id="next-btn" class="next-btn btn hide">Next</button>
-            </div>
-        </div>
+     
 
-            
-    </body>
+    </div>
 
+
+  </div>
+
+  <script type="text/javascript" src="Assets/codeQuiz.js"></script>
+  
+</body>
 </html>
